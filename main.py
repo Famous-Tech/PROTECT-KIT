@@ -65,6 +65,7 @@ def show_info():
     print(Fore.YELLOW + get_translation("contact") + Style.RESET_ALL)
     print(Fore.YELLOW + get_translation("thanks_for_using") + Style.RESET_ALL) 
     print(Fore.RED + get_translation("send_malicious_links") + Style.RESET_ALL)
+    input(Fore.YELLOW + "Press Enter to continue..." + Style.RESET_ALL)  # Ajout de la pause
 
 def update_script():
     repo_url = "https://api.github.com/repos/Famous-Tech/PROTECT-KIT/commits"
@@ -83,6 +84,7 @@ def update_script():
             print(Fore.RED + "Error checking for updates." + Style.RESET_ALL)
     except Exception as e:
         print(Fore.RED + f"Error updating script: {e}" + Style.RESET_ALL)
+    input(Fore.YELLOW + "Press Enter to continue..." + Style.RESET_ALL)  # Ajout de la pause
 
 def main():
     install_dependencies()
@@ -100,6 +102,7 @@ def main():
         elif choice == '3':
             lang = input(Fore.GREEN + get_translation("enter_language") + Style.RESET_ALL)
             set_language(lang)
+            input(Fore.YELLOW + "Press Enter to continue..." + Style.RESET_ALL)  # Ajout de la pause
         elif choice == '4':
             print(Fore.YELLOW + get_translation("goodbye_message") + Style.RESET_ALL)
             break
@@ -107,6 +110,7 @@ def main():
             update_script()
         else:
             print(Fore.RED + get_translation("invalid_option") + Style.RESET_ALL)
+            input(Fore.YELLOW + "Press Enter to continue..." + Style.RESET_ALL)  # Ajout de la pause
 
 if __name__ == "__main__":
     main()
