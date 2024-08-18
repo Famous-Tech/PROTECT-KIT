@@ -60,10 +60,10 @@ def display_menu():
 
 def show_info():
     print(Fore.YELLOW + "DEDSEC-PROTECT-KIT v1.0" + Style.RESET_ALL)
-    print(Fore.YELLOW + "Developed by: FAMOUS-TECH | ʜᴀᴄᴋᴇʀ₁₆₀₉" + Style.RESET_ALL)
-    print(Fore.YELLOW + "Contact: +1 (409) 995-3525 whattsapp only" + Style.RESET_ALL)
-    print(Fore.YELLOW + "THANKS FOR USING THIS SCRIPT" + Style.RESET_ALL) 
-    print(For.RED + "send me all malicious link you know pls i need to create a big database. bye!" + Style.RESET_ALL)
+    print(Fore.YELLOW + get_translation("developed_by") + Style.RESET_ALL)
+    print(Fore.YELLOW + get_translation("contact") + Style.RESET_ALL)
+    print(Fore.YELLOW + get_translation("thanks_for_using") + Style.RESET_ALL) 
+    print(Fore.RED + get_translation("send_malicious_links") + Style.RESET_ALL)
 
 def update_script():
     repo_url = "https://api.github.com/repos/Famous-Tech/PROTECT-KIT/commits"
