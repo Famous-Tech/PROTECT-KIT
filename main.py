@@ -1,4 +1,5 @@
 import os
+import colorama
 from colorama import Fore, Style
 from languages import set_language, get_translation
 from scanner import check_link
