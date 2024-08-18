@@ -94,6 +94,7 @@ def main():
             url = input(Fore.GREEN + get_translation("enter_link") + Style.RESET_ALL)
             result = check_link(url, malicious_links)
             print(result)
+            input(Fore.YELLOW + "Press Enter to continue..." + Style.RESET_ALL)  # Ajout de la pause
         elif choice == '2':
             show_info()
         elif choice == '3':
