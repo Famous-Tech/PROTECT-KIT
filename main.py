@@ -2,6 +2,7 @@ import os
 import colorama
 from colorama import Fore, Style
 from languages import set_language, get_translation
+from utils import get_malware_signatures_path, get_malicious_links_path
 from scanner import check_link, check_apk, check_file
 import json
 import requests
@@ -25,22 +26,6 @@ def is_termux():
 
 def is_kali():
     return 'KALI_VERSION' in os.environ
-
-def get_malicious_links_path():
-    if is_termux():
-        return "/data/data/com.termux/files/home/malicious.json"
-    elif is_kali():
-        return "/home/kali/malicious.json"
-    else:
-        return "malicious.json"
-
-def get_malware_signatures_path():
-    if is_termux():
-        return "/data/data/com.termux/files/home/malware_signatures.json"
-    elif is_kali():
-        return "/home/kali/malware_signatures.json"
-    else:
-        return "malware_signatures.json"
 
 def load_malicious_links():
     try:
