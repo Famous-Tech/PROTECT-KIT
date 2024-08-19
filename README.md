@@ -12,7 +12,7 @@ pip install requests
 git clone https://github.com/Famous-Tech/PROTECT-KIT
 ls
 cd PROTECT-KIT
-ppython main.py
+python main.py
 ```
 ### DISCLAIMER 
 #### PROTECT-KIT CODE IS NOT ALLOWED TO USE IN ANOTHER PROJECT 
