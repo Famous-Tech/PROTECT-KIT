@@ -83,7 +83,7 @@ translations = {
         "invalid_option": "Opsyon invalid, tanpri eseye ankò.",
         "developed_by": "Devlope pa: FAMOUS-TECH | ʜᴀᴄᴋᴇʀ₁₆₀₉",
         "contact": "Kontak: +1 (409) 995-3525 whattsapp only",
-        "thanks_for_using": "MIE GRATITUDE POU ITILIZE SCRIPT SA",
+        "thanks_for_using": "Mèsi dèyè w itilize script sa",
         "send_malicious_links": "voye m' tout lyen malizyè ou konnen tanpri mwen bezwen kreye yon gwo baz done. bye!",
         "malicious_link_detected": "Lyen malizyè detekte!",
         "safe_link": "Lyen sekir.",
