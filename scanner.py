@@ -2,8 +2,10 @@ import subprocess
 import os
 import re
 import json
+import hashlib
 from colorama import Fore, Style
-from main import get_malware_signatures_path
+from utils import get_malware_signatures_path
+import requests
 
 API_KEY = '54c7eeb1cfba5e921b7d375077f42880d383c7238479e63405ad3321c6478c34'  # Remplacez par votre API Key
 API_URL = 'https://www.virustotal.com/vtapi/v2/url/report'
@@ -66,5 +68,24 @@ def check_file(file_path):
                 return Fore.GREEN + "Safe file." + Style.RESET_ALL
         else:
             return Fore.YELLOW + "File not found in VirusTotal database." + Style.RESET_ALL
+    else:
+        return Fore.RED + "Error connecting to VirusTotal." + Style.RESET_ALL
+
+def check_link(url, malicious_links):
+    if url in malicious_links:
+        return Fore.RED + "Malicious link detected!" + Style.RESET_ALL
+    
+    params = {'apikey': API_KEY, 'resource': url}
+    response = requests.get(API_URL, params=params)
+    if response.status_code == 200:
+        json_response = response.json()
+        if json_response['response_code'] == 1:
+            positives = json_response['positives']
+            if positives > 0:
+                return Fore.RED + f"Malicious link detected! ({positives} engines flagged this link)" + Style.RESET_ALL
+            else:
+                return Fore.GREEN + "Safe link." + Style.RESET_ALL
+        else:
+            return Fore.YELLOW + "Link not found in VirusTotal database." + Style.RESET_ALL
     else:
         return Fore.RED + "Error connecting to VirusTotal." + Style.RESET_ALL
