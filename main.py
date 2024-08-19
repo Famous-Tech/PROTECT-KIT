@@ -34,9 +34,24 @@ def get_malicious_links_path():
     else:
         return "malicious.json"
 
+def get_malware_signatures_path():
+    if is_termux():
+        return "/data/data/com.termux/files/home/malware_signatures.json"
+    elif is_kali():
+        return "/home/kali/malware_signatures.json"
+    else:
+        return "malware_signatures.json"
+
 def load_malicious_links():
     try:
         with open(get_malicious_links_path(), 'r') as file:
+            return json.load(file)
+    except FileNotFoundError:
+        return []
+
+def load_malware_signatures():
+    try:
+        with open(get_malware_signatures_path(), 'r') as file:
             return json.load(file)
     except FileNotFoundError:
         return []
@@ -88,8 +103,15 @@ def update_script():
         print(Fore.RED + f"Error updating script: {e}" + Style.RESET_ALL)
     input(Fore.YELLOW + "Press Enter to continue..." + Style.RESET_ALL)  # Ajout de la pause
 
+def install_apktool():
+    if is_termux():
+        subprocess.call(["pkg", "install", "apktool"])
+    elif is_kali():
+        subprocess.call(["sudo", "apt-get", "install", "apktool"])
+
 def main():
     install_dependencies()
+    install_apktool()
     malicious_links = load_malicious_links()
     while True:
         display_menu()
