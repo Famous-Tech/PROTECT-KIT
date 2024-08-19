@@ -1,61 +1,55 @@
-import requests
+import subprocess
+import os
+import re
+import json
 from colorama import Fore, Style
-from urllib.parse import urlparse
-from difflib import SequenceMatcher
-import hashlib
+from main import get_malware_signatures_path
 
 API_KEY = '54c7eeb1cfba5e921b7d375077f42880d383c7238479e63405ad3321c6478c34'  # Remplacez par votre API Key
 API_URL = 'https://www.virustotal.com/vtapi/v2/url/report'
 API_FILE_URL = 'https://www.virustotal.com/vtapi/v2/file/report'
 API_SCAN_URL = 'https://www.virustotal.com/vtapi/v2/file/scan'
 
-def similar(a, b):
-    return SequenceMatcher(None, a, b).ratio()
+def load_malware_signatures():
+    try:
+        with open(get_malware_signatures_path(), 'r') as file:
+            return json.load(file)
+    except FileNotFoundError:
+        return []
 
-def check_virus_total(url):
-    params = {'apikey': API_KEY, 'resource': url}
-    response = requests.get(API_URL, params=params)
-    if response.status_code == 200:
-        json_response = response.json()
-        if json_response['response_code'] == 1:
-            positives = json_response['positives']
-            if positives > 0:
-                return Fore.RED + f"Malicious link detected! ({positives} engines flagged this URL)" + Style.RESET_ALL
-            else:
-                return Fore.GREEN + "Safe link." + Style.RESET_ALL
-        else:
-            return Fore.YELLOW + "Link not found in VirusTotal database." + Style.RESET_ALL
-    else:
-        return Fore.RED + "Error connecting to VirusTotal." + Style.RESET_ALL
+MALWARE_SIGNATURES = load_malware_signatures()
 
-def check_domain_similarity(url, known_domains):
-    parsed_url = urlparse(url)
-    url_domain = parsed_url.netloc
-    for known_domain in known_domains:
-        if similar(url_domain, known_domain) > 0.8:
-            return Fore.RED + f"Suspicious domain detected! Similar to {known_domain}" + Style.RESET_ALL
-    return None
-
-def check_link(url, malicious_links):
-    # Check VirusTotal
-    vt_result = check_virus_total(url)
-    if "Safe link" not in vt_result:
-        return vt_result
+def analyze_apk(apk_path):
+    temp_dir = "temp_apk_analysis"
+    os.makedirs(temp_dir, exist_ok=True)
     
-    # Check malicious.json
-    if url in malicious_links:
-        return Fore.RED + "Malicious link detected! (Known malicious link)" + Style.RESET_ALL
+    # Décompiler l'APK
+    subprocess.call(["apktool", "d", apk_path, "-o", temp_dir])
     
-    # Check domain similarity
-    known_domains = ["whatsapp.com", "facebook.com", "google.com"]
-    similarity_result = check_domain_similarity(url, known_domains)
-    if similarity_result:
-        return similarity_result
+    # Analyser les fichiers décompilés pour voir s’il y a des trucs malveillants 
+    for root, dirs, files in os.walk(temp_dir):
+        for file in files:
+            if file.endswith(".smali"):
+                file_path = os.path.join(root, file)
+                with open(file_path, "r", encoding="utf-8", errors="ignore") as f:
+                    content = f.read()
+                    for signature in MALWARE_SIGNATURES:
+                        if re.search(signature, content):
+                            return Fore.RED + f"Malicious pattern detected: {signature}" + Style.RESET_ALL
     
-    return Fore.GREEN + "Safe link." + Style.RESET_ALL
+    # Nettoyer le répertoire temporaire
+    subprocess.call(["rm", "-rf", temp_dir])
+    
+    return Fore.GREEN + "No malicious patterns detected." + Style.RESET_ALL
 
 def check_apk(apk_path):
-    return check_file(apk_path)
+    # Vérifier avec VirusTotal
+    vt_result = check_file(apk_path)
+    if "Safe file" not in vt_result:
+        return vt_result
+    
+    # Analyser l'APK
+    return analyze_apk(apk_path)
 
 def check_file(file_path):
     with open(file_path, "rb") as f:
