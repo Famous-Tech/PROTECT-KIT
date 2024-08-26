@@ -73,7 +73,7 @@ translations = {
         "info": "INFO",
         "change_language": "Chanje lang",
         "exit": "Sòti",
-        "update_script": "Mete ajou script la",
+        "update_script": "Mete ajou",
         "choose_option": "Chwazi yon opsyon: ",
         "enter_link": "Antre lyen la pou tcheke: ",
         "enter_apk_path": "Antre chemen APK la pou tcheke: ",
@@ -82,7 +82,7 @@ translations = {
         "goodbye_message": "Adye!",
         "invalid_option": "Opsyon invalid, tanpri eseye ankò.",
         "developed_by": "Devlope pa: FAMOUS-TECH | ʜᴀᴄᴋᴇʀ₁₆₀₉",
-        "contact": "Kontak: +1 (409) 995-3525 whattsapp only",
+        "contact": "Kontak: +509 43782508",
         "thanks_for_using": "Mèsi dèyè w itilize script sa",
         "send_malicious_links": "voye m' tout lyen malizyè ou konnen tanpri mwen bezwen kreye yon gwo baz done. bye!",
         "malicious_link_detected": "Lyen malizyè detekte!",
@@ -90,13 +90,13 @@ translations = {
         "link_not_found": "Lyen pa jwenn nan baz done VirusTotal.",
         "error_connecting": "Erè konekte ak VirusTotal.",
         "suspicious_domain_detected": "Domèn sispèk detekte! Menm jan ak {}",
-        "known_malicious_link": "Lyen malveyan detekte! (Lyen malizyè konnen)",
-        "malicious_apk_detected": "APK malizyè detekte!",
+        "known_malicious_link": "Lyen malveyan detekte! (vye lyen sa pa bon pa antre sou li)",
+        "malicious_apk_detected": "APK malveyan detekte!",
         "safe_apk": "APK sekirize.",
         "apk_not_found": "APK pa jwenn nan baz done VirusTotal la gen kèk chans pou li danje.",
         "malicious_file_detected": "Fichye malizyè detekte!",
         "safe_file": "Fichye sekirize.",
-        "file_not_found": "Fichye pa jwenn nan baz done VirusTotal."
+        "file_not_found": "Fichye pa jwenn nan baz done VirusTotal. petèt li bon petet li a bon"
     }
 }
 
